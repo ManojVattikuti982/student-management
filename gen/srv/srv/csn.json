@@ -1,0 +1,288 @@
+{
+  "namespace": "sms",
+  "definitions": {
+    "sms.Students": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "email": {
+          "type": "cds.String"
+        },
+        "age": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "sms.Courses": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "title": {
+          "type": "cds.String"
+        },
+        "credits": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "sms.Enrollments": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "student": {
+          "type": "cds.Association",
+          "target": "sms.Students",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "course": {
+          "type": "cds.Association",
+          "target": "sms.Courses",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "date": {
+          "type": "cds.Date"
+        }
+      }
+    },
+    "StudentService": {
+      "@source": "srv/service.cds",
+      "kind": "service",
+      "@requires": "authenticated-user"
+    },
+    "StudentService.Students": {
+      "kind": "entity",
+      "@UI.FieldGroup#GeneratedGroup.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#GeneratedGroup.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "ID",
+          "Value": {
+            "=": "ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "name",
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "email",
+          "Value": {
+            "=": "email"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "age",
+          "Value": {
+            "=": "age"
+          }
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "GeneratedFacet1",
+          "Label": "General Information",
+          "Target": "@UI.FieldGroup#GeneratedGroup"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "ID",
+          "Value": {
+            "=": "ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "name",
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "email",
+          "Value": {
+            "=": "email"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "age",
+          "Value": {
+            "=": "age"
+          }
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "sms.Students"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "email": {
+          "type": "cds.String"
+        },
+        "age": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "StudentService.Courses": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "sms.Courses"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "title": {
+          "type": "cds.String"
+        },
+        "credits": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "StudentService.Enrollments": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "sms.Enrollments"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "student": {
+          "type": "cds.Association",
+          "target": "StudentService.Students",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "course": {
+          "type": "cds.Association",
+          "target": "StudentService.Courses",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "date": {
+          "type": "cds.Date"
+        }
+      }
+    },
+    "cds.outbox.Messages": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "timestamp": {
+          "type": "cds.Timestamp"
+        },
+        "target": {
+          "type": "cds.String"
+        },
+        "msg": {
+          "type": "cds.LargeString"
+        },
+        "attempts": {
+          "type": "cds.Integer",
+          "default": {
+            "val": 0
+          }
+        },
+        "partition": {
+          "type": "cds.Integer",
+          "default": {
+            "val": 0
+          }
+        },
+        "lastError": {
+          "type": "cds.LargeString"
+        },
+        "lastAttemptTimestamp": {
+          "type": "cds.Timestamp"
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 23
+        },
+        "task": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "appid": {
+          "type": "cds.String",
+          "length": 255
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v6.8.0",
+    "compilerCsnFlavor": "inferred",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}

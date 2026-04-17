@@ -1,0 +1,7 @@
+COLUMN TABLE sms_Enrollments (
+  ID NVARCHAR(5000) NOT NULL,
+  student_ID NVARCHAR(5000),
+  course_ID NVARCHAR(5000),
+  "DATE" DATE,
+  PRIMARY KEY(ID)
+)

@@ -1,0 +1,52 @@
+{
+  "name": "student-management",
+  "version": "1.0.0",
+  "description": "Welcome to your new CAP project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx cds-serve",
+    "watch-student-ui": "cds watch --open studentui/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy student-management --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@cap-js/hana": "^2",
+    "@cap-js/sqlite": "^2.2.0",
+    "@sap/cds": "^9.8.5",
+    "@sap/generator-fiori": "^1.22.0",
+    "@sap/hana-client": "^2.28.19",
+    "@sap/xssec": "^4"
+  },
+  "cds": {
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa"
+      },
+      "db": {
+        "kind": "hana"
+      }
+    },
+    "server": {
+      "index": true
+    }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "devDependencies": {
+    "@sap/cds-dk": "^9",
+    "cds-plugin-ui5": "^0.13.0",
+    "rimraf": "^5.0.5",
+    "mbt": "^1.2.29"
+  },
+  "sapux": [
+    "app/student-ui",
+    "app/student-ui"
+  ]
+}

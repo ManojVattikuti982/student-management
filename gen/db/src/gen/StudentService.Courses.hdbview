@@ -1,0 +1,5 @@
+VIEW StudentService_Courses AS SELECT
+  Courses_0.ID,
+  Courses_0.title,
+  Courses_0.credits
+FROM sms_Courses AS Courses_0

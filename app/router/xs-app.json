@@ -1,0 +1,19 @@
+{
+  "welcomeFile": "/studentui/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/odata/v4/(.*)$",
+      "target": "/odata/v4/$1",
+      "destination": "srv-api",
+      "csrfProtection": true,
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}

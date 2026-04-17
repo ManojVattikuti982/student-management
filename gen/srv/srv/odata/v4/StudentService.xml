@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="StudentService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <Annotation Term="Core.Links">
+        <Collection>
+          <Record>
+            <PropertyValue Property="rel" String="author"/>
+            <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+          </Record>
+        </Collection>
+      </Annotation>
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Students" EntityType="StudentService.Students"/>
+        <EntitySet Name="Courses" EntityType="StudentService.Courses"/>
+        <EntitySet Name="Enrollments" EntityType="StudentService.Enrollments">
+          <NavigationPropertyBinding Path="student" Target="Students"/>
+          <NavigationPropertyBinding Path="course" Target="Courses"/>
+        </EntitySet>
+      </EntityContainer>
+      <EntityType Name="Students">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.String" Nullable="false"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="email" Type="Edm.String"/>
+        <Property Name="age" Type="Edm.Int32"/>
+      </EntityType>
+      <EntityType Name="Courses">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.String" Nullable="false"/>
+        <Property Name="title" Type="Edm.String"/>
+        <Property Name="credits" Type="Edm.Int32"/>
+      </EntityType>
+      <EntityType Name="Enrollments">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.String" Nullable="false"/>
+        <NavigationProperty Name="student" Type="StudentService.Students">
+          <ReferentialConstraint Property="student_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="student_ID" Type="Edm.String"/>
+        <NavigationProperty Name="course" Type="StudentService.Courses">
+          <ReferentialConstraint Property="course_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="course_ID" Type="Edm.String"/>
+        <Property Name="date" Type="Edm.Date"/>
+      </EntityType>
+      <Annotations Target="StudentService.Students">
+        <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="ID"/>
+                  <PropertyValue Property="Value" Path="ID"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="name"/>
+                  <PropertyValue Property="Value" Path="name"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="email"/>
+                  <PropertyValue Property="Value" Path="email"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="age"/>
+                  <PropertyValue Property="Value" Path="age"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="GeneratedFacet1"/>
+              <PropertyValue Property="Label" String="General Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="ID"/>
+              <PropertyValue Property="Value" Path="ID"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="name"/>
+              <PropertyValue Property="Value" Path="name"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="email"/>
+              <PropertyValue Property="Value" Path="email"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="age"/>
+              <PropertyValue Property="Value" Path="age"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

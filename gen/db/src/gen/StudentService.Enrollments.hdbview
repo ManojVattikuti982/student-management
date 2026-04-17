@@ -1,0 +1,6 @@
+VIEW StudentService_Enrollments AS SELECT
+  Enrollments_0.ID,
+  Enrollments_0.student_ID,
+  Enrollments_0.course_ID,
+  Enrollments_0."DATE"
+FROM sms_Enrollments AS Enrollments_0

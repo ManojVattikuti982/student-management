@@ -1,0 +1,6 @@
+COLUMN TABLE sms_Courses (
+  ID NVARCHAR(5000) NOT NULL,
+  title NVARCHAR(5000),
+  credits INTEGER,
+  PRIMARY KEY(ID)
+)
