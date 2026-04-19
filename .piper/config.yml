@@ -1,0 +1,13 @@
+general:
+  cfApiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
+  cfOrg: "95b66f10trial"
+  cfSpace: "dev"
+
+stages:
+  Build:
+    buildTool: "mta"
+
+steps:
+  cloudFoundryDeploy:
+    cfCredentialsId: "cf-credentials"
+    mtaDeployParameters: "-f"

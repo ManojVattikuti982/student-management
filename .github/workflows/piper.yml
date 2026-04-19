@@ -1,0 +1,49 @@
+name: SAP CAP CI/CD (Project Piper)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  piper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install CAP & MBT
+        run: npm install -g @sap/cds-dk mbt
+
+      - name: Install Piper CLI
+        run: |
+          curl -Lo piper https://github.com/SAP/jenkins-library/releases/latest/download/piper
+          chmod +x piper
+
+      - name: Build MTA (Piper)
+        run: ./piper buildMTA
+
+      - name: Install CF CLI
+        run: |
+          wget -qO- https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo tee /usr/share/keyrings/cf-cli.key
+          echo "deb [signed-by=/usr/share/keyrings/cf-cli.key] https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cf-cli.list
+          sudo apt update
+          sudo apt install cf8-cli -y
+
+      - name: Install CF Plugin
+        run: cf install-plugin -r CF-Community multiapps -f
+
+      - name: Deploy (Piper)
+        run: |
+          ./piper cloudFoundryDeploy \
+            --username ${{ secrets.CF_USER }} \
+            --password ${{ secrets.CF_PASSWORD }}
