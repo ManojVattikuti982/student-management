@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Check Node Version
+        run: node -v
+
       - name: Install Dependencies
         run: npm ci
 
@@ -34,23 +37,23 @@ jobs:
       - name: Install CF CLI
         run: |
           curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github" -o cf.tgz
-          ls -l
+          if [ ! -f cf.tgz ]; then exit 1; fi
           tar -xzf cf.tgz
-          ls -l
+          if [ ! -f cf8 ]; then exit 1; fi
           sudo mv cf8 /usr/local/bin/cf
           sudo chmod +x /usr/local/bin/cf
           cf --version
 
-    - name: Install CF Plugin
-      run: cf install-plugin -r CF-Community multiapps -f
+      - name: Install CF Plugin
+        run: cf install-plugin -r CF-Community multiapps -f
 
-    - name: Login to SAP BTP
-      run: |
-        cf login -a ${{ secrets.CF_API }} \
-                 -u ${{ secrets.CF_USER }} \
-                 -p ${{ secrets.CF_PASSWORD }} \
-                 -o ${{ secrets.CF_ORG }} \
-                 -s ${{ secrets.CF_SPACE }}
+      - name: Login to SAP BTP
+        run: |
+          cf login -a ${{ secrets.CF_API }} \
+                   -u ${{ secrets.CF_USER }} \
+                   -p ${{ secrets.CF_PASSWORD }} \
+                   -o ${{ secrets.CF_ORG }} \
+                   -s ${{ secrets.CF_SPACE }}
 
-    - name: Deploy to Cloud Foundry
-      run: cf deploy gen/mta.tar -f
+      - name: Deploy to Cloud Foundry
+        run: cf deploy gen/mta.tar -f
