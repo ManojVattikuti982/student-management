@@ -10,34 +10,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Install Dependencies
+        run: npm ci
 
-    - name: Install Dependencies
-      run: npm ci
+      - name: Install CAP & MBT
+        run: |
+          npm install -g @sap/cds-dk mbt
 
-    - name: Install CAP & MBT
-      run: |
-        npm install -g @sap/cds-dk mbt
+      - name: Run Tests
+        run: npm test || echo "No tests"
 
-    - name: Run Tests
-      run: npm test || echo "No tests"
+      - name: Build MTA
+        run: mbt build -t gen --mtar mta.tar
 
-    - name: Build MTA
-      run: mbt build -t gen --mtar mta.tar
-
-    - name: Install CF CLI
-      run: |
-        curl -L -o cf.tgz https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github
-        tar -xzf cf.tgz
-        sudo mv cf8 /usr/local/bin/cf
-        sudo chmod +x /usr/local/bin/cf
+      - name: Install CF CLI
+        run: |
+          curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github" -o cf.tgz
+          ls -l
+          tar -xzf cf.tgz
+          ls -l
+          sudo mv cf8 /usr/local/bin/cf
+          sudo chmod +x /usr/local/bin/cf
+          cf --version
 
     - name: Install CF Plugin
       run: cf install-plugin -r CF-Community multiapps -f
