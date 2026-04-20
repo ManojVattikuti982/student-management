@@ -56,16 +56,16 @@ modules:
   type: com.sap.application.content
   path: .
   requires:
-    - name: student-management-repo-host
-      parameters:
-        content-target: true
+  - name: student-management-repo-host
+    parameters:
+      content-target: true
   build-parameters:
     build-result: resources
     requires:
-      - name: studentui
-        artifacts:
-          - dist/**
-        target-path: resources/studentui
+    - artifacts:
+      - studentui.zip
+      name: studentui
+      target-path: resources/
 - name: studentui
   type: html5
   path: app/student-ui

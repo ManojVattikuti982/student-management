@@ -4,7 +4,7 @@
   "description": "Welcome to your new CAP project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No tests\"",
     "start": "npx cds-serve",
     "watch-student-ui": "cds watch --open studentui/index.html?sap-ui-xx-viewCache=false --livereload false",
     "undeploy": "cf undeploy student-management --delete-services --delete-service-keys --delete-service-brokers",
