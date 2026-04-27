@@ -25,6 +25,9 @@
   },
   "cds": {
     "requires": {
+      "[development]": {
+        "auth": "dummy"
+      },
       "[production]": {
         "auth": "xsuaa"
       },
