@@ -1,6 +1,21 @@
 {
-  "scopes": [],
-  "attributes": [],
-  "role-templates": [],
-  "authorities-inheritance": false
+  "xsappname": "student-management",
+  "tenant-mode": "dedicated",
+
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.admin",
+      "description": "Admin access"
+    }
+  ],
+
+  "role-templates": [
+    {
+      "name": "admin",
+      "description": "Admin role",
+      "scope-references": [
+        "$XSAPPNAME.admin"
+      ]
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 using sms from '../db/schema';
 
-annotate StudentService with @requires: 'authenticated-user';
+annotate StudentService with @requires: 'admin';
 
 service StudentService {
   entity Students    as projection on sms.Students;

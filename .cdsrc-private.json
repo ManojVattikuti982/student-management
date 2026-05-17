@@ -14,6 +14,19 @@
         "vcap": {
           "name": "db"
         }
+      },
+      "job_scheduler": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "95b66f10trial",
+          "space": "dev",
+          "instance": "job_scheduler",
+          "key": "job_scheduler-key"
+        },
+        "vcap": {
+          "name": "job_scheduler"
+        }
       }
     }
   }

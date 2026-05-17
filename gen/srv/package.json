@@ -4,7 +4,7 @@
   "description": "Welcome to your new CAP project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No tests\"",
     "start": "npx cds-serve",
     "watch-student-ui": "cds watch --open studentui/index.html?sap-ui-xx-viewCache=false --livereload false",
     "undeploy": "cf undeploy student-management --delete-services --delete-service-keys --delete-service-brokers",
@@ -19,12 +19,14 @@
     "@cap-js/hana": "^2",
     "@cap-js/sqlite": "^2.2.0",
     "@sap/cds": "^9.8.5",
-    "@sap/generator-fiori": "^1.22.0",
     "@sap/hana-client": "^2.28.19",
     "@sap/xssec": "^4"
   },
   "cds": {
     "requires": {
+      "[development]": {
+        "auth": "dummy"
+      },
       "[production]": {
         "auth": "xsuaa"
       },
@@ -38,8 +40,10 @@
   },
   "devDependencies": {
     "@sap/cds-dk": "^9",
-    "rimraf": "^5.0.5",
-    "mbt": "^1.2.29"
+    "@sap/generator-fiori": "^1.23.0",
+    "loadtest": "^8.2.1",
+    "mbt": "^1.2.29",
+    "rimraf": "^5.0.5"
   },
   "sapux": [
     "app/student-ui",

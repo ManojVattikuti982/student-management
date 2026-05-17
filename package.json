@@ -19,7 +19,6 @@
     "@cap-js/hana": "^2",
     "@cap-js/sqlite": "^2.2.0",
     "@sap/cds": "^9.8.5",
-    "@sap/generator-fiori": "^1.22.0",
     "@sap/hana-client": "^2.28.19",
     "@sap/xssec": "^4"
   },
@@ -44,9 +43,11 @@
   ],
   "devDependencies": {
     "@sap/cds-dk": "^9",
+    "@sap/generator-fiori": "^1.23.0",
     "cds-plugin-ui5": "^0.13.0",
-    "rimraf": "^5.0.5",
-    "mbt": "^1.2.29"
+    "loadtest": "^8.2.1",
+    "mbt": "^1.2.29",
+    "rimraf": "^5.0.5"
   },
   "sapux": [
     "app/student-ui",

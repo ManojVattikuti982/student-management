@@ -26,6 +26,7 @@
           <NavigationPropertyBinding Path="student" Target="Students"/>
           <NavigationPropertyBinding Path="course" Target="Courses"/>
         </EntitySet>
+        <FunctionImport Name="getCourseEnrollmentCount" Function="StudentService.getCourseEnrollmentCount"/>
       </EntityContainer>
       <EntityType Name="Students">
         <Key>
@@ -59,6 +60,14 @@
         <Property Name="course_ID" Type="Edm.String"/>
         <Property Name="date" Type="Edm.Date"/>
       </EntityType>
+      <ComplexType Name="return_StudentService_getCourseEnrollmentCount">
+        <Property Name="courseID" Type="Edm.String"/>
+        <Property Name="courseName" Type="Edm.String"/>
+        <Property Name="count" Type="Edm.Int32"/>
+      </ComplexType>
+      <Function Name="getCourseEnrollmentCount" IsBound="false" IsComposable="false">
+        <ReturnType Type="Collection(StudentService.return_StudentService_getCourseEnrollmentCount)" Nullable="true"/>
+      </Function>
       <Annotations Target="StudentService.Students">
         <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup">
           <Record Type="UI.FieldGroupType">

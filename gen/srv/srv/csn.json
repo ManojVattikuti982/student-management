@@ -71,7 +71,7 @@
     "StudentService": {
       "@source": "srv/service.cds",
       "kind": "service",
-      "@requires": "authenticated-user"
+      "@requires": "admin"
     },
     "StudentService.Students": {
       "kind": "entity",
@@ -230,6 +230,24 @@
         }
       }
     },
+    "StudentService.getCourseEnrollmentCount": {
+      "kind": "function",
+      "returns": {
+        "items": {
+          "elements": {
+            "courseID": {
+              "type": "cds.String"
+            },
+            "courseName": {
+              "type": "cds.String"
+            },
+            "count": {
+              "type": "cds.Integer"
+            }
+          }
+        }
+      }
+    },
     "cds.outbox.Messages": {
       "kind": "entity",
       "elements": {
@@ -280,7 +298,8 @@
     }
   },
   "meta": {
-    "creator": "CDS Compiler v6.8.0",
+    "creator": "CDS Compiler v6.9.0",
+    "compilerVersion": "6.9.0",
     "compilerCsnFlavor": "inferred",
     "flavor": "inferred"
   },
